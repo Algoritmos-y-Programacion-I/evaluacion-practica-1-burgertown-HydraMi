@@ -2,7 +2,7 @@ package ui;
 
 import java.util.Scanner;
 
-public class BurgerTown {
+public class BurgerTown{
 
     public static Scanner reader;
     public static double[] precios;
@@ -17,7 +17,7 @@ public class BurgerTown {
     /**
      * Descripcion: Este metodo se encarga de iniciar las variables globales
      * pre: El Scanner reader debe estar declarado
-     * pos: l Scanner reader queda inicializado
+     * pos: El Scanner reader queda inicializado
     */
     public static void inicializarGlobales() {
 
@@ -32,7 +32,7 @@ public class BurgerTown {
     */
     public static void menu() {
 
-        System.out.println("Bienvenido a BurgerTown!");
+        System.out.println("\nBienvenido a BurgerTown!");
 
         establecerCantidadVendida();
 
@@ -86,9 +86,6 @@ public class BurgerTown {
     /**
      * Descripcion: Este metodo se encarga de preguntar al usuario el numero de platos diferentes 
      * vendidos en el dia e inicializa con ese valor los arreglos encargados de almacenar precios y cantidades
-     * pre: El Scanner reader debe estar inicializado
-     * pre: Los arreglos precios y unidades deben estar declarados
-     * pos: Los arreglos precios y unidades quedan inicializados
      */
     public static void establecerCantidadVendida() {
 
@@ -99,33 +96,70 @@ public class BurgerTown {
         unidades = new int[platos];
 
     }
+    /**
+     * Descripcion: Este metodo solicita al usuario el precio y la cantidad vendida de cada plato
+     * y llena los arreglos correspondientes.
+     */
 
     public static void solicitarDatos(){
 
-     
-    }
+      for (int i= 0; i <precios.length; i++){
 
+        System.out.println("Ingresa el precio del plato " + (i+1) + ":");
+            precios[i] = reader.nextDouble();
+        System.out.println("Ingresa cuantas unidades vendiste del plato " + (i+1) + ":");
+            unidades[i] = reader.nextInt();
+
+      }
+
+    }
+    /**
+     * Descripcion: Este metodo calcula el total de platos vendidos durante el dia sumando las cantidades de cada plato.
+     */
     public static int calcularTotalPlatosVendidos(){
-
-        return 0;
+        int totalPlatos= 0;
+        for (int cantidad: unidades){
+            totalPlatos += cantidad;
+        }
+        return totalPlatos;
 
     }
-
+    /**
+     * Descripcion: Este metodo calcula el precio promedio de los platos vendidos, ponderando los precios
+     * por la cantidad vendida.
+     */
     public static double calcularPrecioPromedio(){
-
-        return 0;
+        double totalPrecio= 0;
+        for (int i=0; i <precios.length; i++){
+            totalPrecio += precios[i] * unidades[i];
+        }
+        return totalPrecio/ calcularTotalPlatosVendidos();
 
     }
-
+    /**
+     * Descripcion: Este metodo calcula el total de dinero recaudado durante el día, multiplicando
+     * el precio de cada plato por la cantidad vendida y sumando los resultados.
+     */
     public static double calcularVentasTotales(){
-
-        return 0;
+        double totalVentas= 0;
+        for (int i=0 ; i<precios.length; i++){
+            totalVentas += precios[i] * unidades[i];
+        }
+        return totalVentas;
 
     }
-
+    /**
+     * Descripcion: Este metodo analiza cuántos platos han superado un limite minimo de ventas.
+     * @param limite El limite minimo de ventas a analizar.
+     */
     public static int consultarPlatosSobreLimite(double limite){
-
-        return 0;
+        int contador= 0 ; 
+        for (int i=0;i<precios.length; i++){
+            if (precios [i]* unidades[i]> limite){
+                contador++ ;
+            }
+        }
+        return contador ;
 
     }
 
